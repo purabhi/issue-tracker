@@ -50,14 +50,14 @@ const NewIssuePage = () => {
         </Callout.Root>
         }
         <form  onSubmit={onSubmit}>
-        <TextField.Root placeholder='Title' {...register('title')}>
+        <TextField.Root className='mb-2' placeholder='Title' {...register('title')}>
         </TextField.Root>
         <ErrorMessage>{errors.title?.message}</ErrorMessage> 
 
         <Controller
         name="description"
         control={control}
-        render ={({field})=><SimpleMDE placeholder='Description' {...field} />
+        render ={({field})=><SimpleMDE className='' placeholder='Description' {...field} />
 }
         
         />
