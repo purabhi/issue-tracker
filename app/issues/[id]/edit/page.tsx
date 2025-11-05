@@ -1,30 +1,26 @@
-import React from 'react'
-import IssueForm from '../../_components/IssueForm'
-import { prisma } from '@/prisma/client'
-import { notFound } from 'next/navigation'
+import React from 'react';
+import { prisma } from '@/prisma/client';
+import { notFound } from 'next/navigation';
+import IssueFormClientWrapper from '@/app/issues/_components/IssueFormClientWrapper';
 
-interface Props{
-  params:Promise<{
-    id:string
-  }>
+interface Props {
+  params: Promise<{ id: string }>;
 }
 
-const EditIssuePage = async ({params}:Props) => {
-  const resolvedParams = await params
+const EditIssuePage = async ({ params }: Props) => {
+  const resolvedParams = await params;
+
   const issue = await prisma.issue.findUnique({
-    where:{
-      id:parseInt(resolvedParams.id)
-    }
+    where: {
+      id: parseInt(resolvedParams.id),
+    },
   });
 
-  if(!issue)
-  {
-    notFound();
-  }
+  if (!issue) notFound();
 
-  return (
-    <IssueForm issue={issue}/>
-  )
-}
+  // ✅ Serialize before sending to client
+  return <IssueFormClientWrapper issue={JSON.parse(JSON.stringify(issue))} />
 
-export default EditIssuePage
+};
+
+export default EditIssuePage;
