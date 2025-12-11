@@ -6,6 +6,7 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css'
+import toast,{Toaster} from 'react-hot-toast';
 
 
 const AssigneeSelect = ({issue}:{issue : Issue}) => {
@@ -32,10 +33,10 @@ const AssigneeSelect = ({issue}:{issue : Issue}) => {
 
     try {
       await axios.patch('/api/issues/' + issue.id, { assignedToUserId });
+      toast.success('Bug Assigned to user')
       
     } catch (err) {
-      console.error('Failed to update assignee', err);
-      
+toast.error('Changes could not be saved')      
     }
   };
 
@@ -44,6 +45,7 @@ const AssigneeSelect = ({issue}:{issue : Issue}) => {
 
 
   return (
+    <>
     <Select.Root defaultValue={issue.assignedToUserId ?? "unassigned"} onValueChange={handleChange}>
         <Select.Trigger placeholder='Assign...'/>
         <Select.Content>
@@ -64,6 +66,8 @@ const AssigneeSelect = ({issue}:{issue : Issue}) => {
 
        
     </Select.Root>
+    <Toaster/>
+    </>
   )
 }
 
