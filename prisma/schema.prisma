@@ -65,7 +65,6 @@ model User {
   image          String?
   accounts       Account[]
   sessions       Session[]
-  issues         Issue[]
   assignedIssues Issue[]
 
   @@map("users")
