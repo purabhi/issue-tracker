@@ -18,7 +18,6 @@ const EditIssuePage = async ({ params }: Props) => {
 
   if (!issue) notFound();
 
-  // ✅ Serialize before sending to client
   return <IssueFormClientWrapper issue={JSON.parse(JSON.stringify(issue))} />
 
 };
