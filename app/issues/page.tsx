@@ -12,7 +12,7 @@ import { ArrowUpIcon } from '@radix-ui/react-icons';
 
 
 interface Props{
-  searchParams :{status? : Status,orderBy: keyof Issue}
+  searchParams :Promise<{status? : Status,orderBy: keyof Issue}>
 }
 
 
@@ -31,7 +31,6 @@ const IssuesPage = async({searchParams}:Props) => {
   ]
 
 
-  // console.log(searchParams)
 
   const resolvedParams = await searchParams;
 
@@ -41,7 +40,9 @@ const IssuesPage = async({searchParams}:Props) => {
 
   const status = statuses.includes(resolvedParams.status!) ?resolvedParams.status:undefined
 
-  const issues = await prisma.issue.findMany({where:{status:status}});
+  const orderBy = columns.map(column=>column.value).includes(resolvedParams.orderBy)?{[resolvedParams.orderBy]:'asc'}:undefined;
+
+  const issues = await prisma.issue.findMany({where:{status:status},orderBy});
   await delay(2000);
   return (
     <div>
@@ -49,7 +50,7 @@ const IssuesPage = async({searchParams}:Props) => {
     <Table.Root variant='surface'>
       <Table.Header>
         <Table.Row>
-          {columns.map((column)=><Table.ColumnHeaderCell key={column.value}><NextLink href={{
+          {columns.map((column)=><Table.ColumnHeaderCell className={column.className} key={column.value}><NextLink href={{
             query:{...resolvedParams,orderBy:column.value}
           }}>{column.label}</NextLink>
           {column.value===resolvedParams.orderBy && <ArrowUpIcon className='inline'/>}
