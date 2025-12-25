@@ -1,7 +1,9 @@
 import Pagination from "./components/Pagination";
 
-export default function Home() {
+export default async function Home({searchParams} :{searchParams :Promise<{page:string}>}) {
+
+  const resolvedParams = await searchParams;
   return (
-    <Pagination itemCount={100} pageSize={10} currentPage={10}/>
+    <Pagination itemCount={100} pageSize={10} currentPage={parseInt(resolvedParams.page)}/>
   )
 }
