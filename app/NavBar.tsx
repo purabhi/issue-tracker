@@ -11,7 +11,7 @@ import { Avatar, Box, Container, DropdownMenu, Flex, Text } from '@radix-ui/them
 const NavBar = () => {
    
   return (
-<nav className='border-b mb-5 px-5 py-3 '>
+<nav className='border-b mb-3 px-5 py-3 '>
   <Container>
 
 <Flex justify="between">
@@ -85,11 +85,7 @@ const AuthStatus = ()=>{
     </DropdownMenu.Item>
 </DropdownMenu.Content>
 </DropdownMenu.Root>
-
-
-
-
-  </Box>)
+</Box>)
 }
 
 export default NavBar
