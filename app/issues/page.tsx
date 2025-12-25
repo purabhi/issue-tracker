@@ -5,7 +5,7 @@ import IssueStatusBadge from '../components/IssueStatusBadge';
 import delay from 'delay';
 import IssueActions from './issueActions';
 import { Issue, Status } from '@prisma/client';
-import Link from 'next/link';
+import Link from '../components/Link';
 import NextLink from 'next/link';
 import { ArrowUpIcon } from '@radix-ui/react-icons';
 
